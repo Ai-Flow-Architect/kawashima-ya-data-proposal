@@ -391,10 +391,16 @@
   </table>
   <div class="section-sub" style="margin-top:14px;">
     <strong>連携時の制約・確認事項：</strong>
+    アクションリンク＝公開APIが確認できないため、提供されているデータ出力方式（API／CSV／DWH連携等）の確認後に実装範囲を確定／
     Nint＝API／外部連携が提供されていないため CSV／XML手動DL → BigQuery取込の「半自動」構成／
-    Amazon US・UK＝SP-API連携可だが国別認証で工数大（プランC内に織込済）／
-    セラースプライト＝API有無を確認のうえ可否確定／
+    Amazon US・UK＝SP-API連携可だがリージョン別の申請・審査が必要なため着手時期が前後する可能性／
+    セラースプライト＝公式の商用API（有料）あり。取得項目・費用を確認のうえ範囲を確定／
     Clockify・タイムクラウド＝要件が固まってから・今回は対象外。
+  </div>
+  <div class="section-sub" style="margin-top:8px;">
+    <strong>分析の前提データ：</strong>
+    粗利LTV・クロスセル分析は、注文番号（transaction_id）の一貫性と原価（粗利）マスタが取得できることが前提です。前提データの所在を着手時に確認のうえ進めます。
+    なお、Meta広告は履歴エクスポート範囲、LINEは統計確定までのラグ、Shopifyは管理画面値との差分など、各サービス仕様上の制約が一部あります（初回取込時にご説明します）。
   </div>
 </div>
 
