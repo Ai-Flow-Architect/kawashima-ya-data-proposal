@@ -114,6 +114,19 @@
   .note { background: linear-gradient(135deg, #ecfdf5, #f0fdf4); border: 1px solid #86efac; border-radius: 14px; padding: 22px 24px; font-size: 14px; }
   .note strong { color: var(--primary-dark); }
 
+  .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 22px; align-items: start; }
+  @media(max-width: 720px) { .price-grid { grid-template-columns: 1fr; } }
+  .price-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 26px 20px 22px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; flex-direction: column; position: relative; }
+  .price-card.rec { border: 2px solid var(--primary); box-shadow: 0 10px 24px rgba(21,128,61,0.18); }
+  .price-card .rec-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--primary); color: #fff; font-size: 12px; font-weight: 800; padding: 4px 16px; border-radius: 12px; white-space: nowrap; }
+  .price-card .plan-name { font-size: 15px; font-weight: 800; color: var(--primary-dark); margin-bottom: 8px; }
+  .price-card .plan-price { font-size: 30px; font-weight: 900; color: var(--text); line-height: 1.1; }
+  .price-card .plan-price small { font-size: 13px; font-weight: 600; color: var(--muted); }
+  .price-card .plan-term { font-size: 12px; color: var(--muted); margin: 4px 0 14px; }
+  .price-card ul { list-style: none; padding: 0; margin: 0; }
+  .price-card li { font-size: 13px; padding: 7px 0; border-bottom: 1px dashed var(--border); }
+  .price-card li:last-child { border-bottom: none; }
+
   footer { background: var(--text); color: #94a3b8; text-align: center; padding: 30px 20px; font-size: 13px; margin-top: 56px; }
   footer strong { color: #fff; }
 </style>
@@ -127,7 +140,7 @@
   <div class="hero-meta">
     <span>かわしま屋様</span>
     <span>食品EC（カラーミーショップ運営）</span>
-    <span>壁打ち・方針整理フェーズ</span>
+    <span>正式お見積り（3プラン）フェーズ</span>
   </div>
 </div>
 
@@ -347,9 +360,87 @@
 </div>
 
 <div class="section">
+  <div class="section-title">フェーズ構成（連携希望リスト全体の整理）</div>
+  <div class="section-sub">いただいた連携希望リストを、効果が出る順に Phase 1 → 2 → 3 で整理しました。まず Phase 1 で「躓きの解消＋国内基盤」を固め、そこから段階的に広げられます。</div>
+  <table>
+    <thead>
+      <tr><th>フェーズ</th><th>含まれる内容</th><th>状態</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="k">Phase 1<br>国内データ基盤</td>
+        <td>既存月次スプシ → BigQuery統合（複数タブ・毎日更新対応）／Looker Studio高速化／カラーミーショップ・Meta広告・LINE公式・アクションリンク連携／Claude連携（粗利・グループ別・期間別集計）</td>
+        <td><span class="tag g">今回スコープ</span></td>
+      </tr>
+      <tr>
+        <td class="k">Phase 2<br>粗利LTV・クロスセル</td>
+        <td>粗利LTV分析（メルマガ／LINE／広告経由の粗利ベース算出）／商品⇔広告の双方向追跡（クロスセル発見）／ロジレス（在庫・受注）連携</td>
+        <td><span class="tag y">プランCに包含</span></td>
+      </tr>
+      <tr>
+        <td class="k">Phase 3<br>海外・リサーチ・バックオフィス</td>
+        <td>Shopify（海外）・Amazon US/UK 連携／Nint・セラースプライト連携（制約あり）／配送業務の自動化・試算表の自動生成・市場リサーチの自動収集</td>
+        <td><span class="tag b">プランCに包含</span></td>
+      </tr>
+      <tr>
+        <td class="k">連携済（対象外）</td>
+        <td>GA4／Google広告／サーチコンソール／マーチャントセンター（既存BigQueryへ連携済・本見積りには含みません）</td>
+        <td><span class="tag g">完了</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="section-sub" style="margin-top:14px;">
+    <strong>連携時の制約・確認事項：</strong>
+    Nint＝API／外部連携が提供されていないため CSV／XML手動DL → BigQuery取込の「半自動」構成／
+    Amazon US・UK＝SP-API連携可だが国別認証で工数大（プランC内に織込済）／
+    セラースプライト＝API有無を確認のうえ可否確定／
+    Clockify・タイムクラウド＝要件が固まってから・今回は対象外。
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">お見積り（3プラン）</div>
+  <div class="section-sub">いずれも税別です。着手金として50%を前受し、残金は事前合意した「最低限の完成ライン（DoD）」の達成をご確認いただいたうえで頂戴いたします。</div>
+  <div class="price-grid">
+    <div class="price-card">
+      <div class="plan-name">プランA：スタート（躓きの即解消）</div>
+      <div class="plan-price">¥78,000<small> 税別</small></div>
+      <div class="plan-term">納期目安：約1〜2週間</div>
+      <ul>
+        <li>既存月次スプシ → BigQuery統合（複数タブ・毎日更新対応）</li>
+        <li>Looker Studio高速化（表示待ち時間を大幅短縮）</li>
+        <li>Claude連携（グループ別・期間別の売上集計）</li>
+        <li>「読取制限・複数タブ・毎日更新」の3課題を確実に解消</li>
+      </ul>
+    </div>
+    <div class="price-card rec">
+      <span class="rec-badge">おすすめ</span>
+      <div class="plan-name">プランB：標準（国内データ基盤フル）</div>
+      <div class="plan-price">¥198,000<small> 税別</small></div>
+      <div class="plan-term">納期目安：約3〜4週間</div>
+      <ul>
+        <li>プランAの全内容</li>
+        <li>カラーミー／Meta広告／LINE公式／アクションリンク（4チャネル新規連携）を統合</li>
+        <li>粗利・グループ別・期間別のClaude集計フル対応</li>
+        <li>国内主要チャネルを1基盤に集約。分析が「Claudeに聞くだけ」に</li>
+      </ul>
+    </div>
+    <div class="price-card">
+      <div class="plan-name">プランC：全部入り（海外・リサーチ・バックオフィスまで）</div>
+      <div class="plan-price">¥680,000<small> 税別</small></div>
+      <div class="plan-term">納期目安：フェーズ分割で約2〜3か月</div>
+      <ul>
+        <li>プランBの全内容</li>
+        <li>粗利LTV分析／商品⇔広告の双方向追跡（クロスセル発見）</li>
+        <li>ロジレス／Shopify（海外）・Amazon US/UK／Nint・セラースプライト連携</li>
+        <li>配送業務・試算表の自動化／市場リサーチの自動収集</li>
+        <li>着手金・DoD・残金はフェーズごとに区切ってお支払い可能</li>
+      </ul>
+    </div>
+  </div>
   <div class="note">
-    <strong>本日のスタンス：</strong> 見積書は本日のヒアリング内容を踏まえ、後日改めてご提示いたします。本日は「<strong>どのデータを・どの粒度で・どのロジックで分析するか</strong>」を一緒に整理させていただき、貴社が次の一歩を意思決定できる状態を作ることがゴールです。<br><br>
-    なお、動作しない場合は<strong>全額返金にて対応</strong>いたします（成功条件は本日書面化させていただきます）。
+    <strong>全額返金保証：</strong> 万一、事前に合意した「最低限の完成ライン（DoD）」に達しなかった場合は、<strong>着手金を全額返金</strong>いたします。着手前に達成基準を文書で明確にしますので、安心してお任せいただけます。<br><br>
+    まずは「<strong>どのプランで進めるか</strong>」の方向性をお聞かせいただければ、正式な着手準備に入ります。あわせて確認事項（粗利率データの所在・transaction_id・Meta広告CAPI・アクションリンク仕様 等）をご回答いただけますと、より精度の高い実装が可能です。
   </div>
 </div>
 
